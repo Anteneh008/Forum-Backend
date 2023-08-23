@@ -1,11 +1,13 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
-const pool = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.MYSQL_DB,
-});
+// const pool = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASS,
+//   database: process.env.MYSQL_DB,
+// });
+
+const pool = mysql.createConnection(process.env.DATABASE_URL);
 
 pool.connect(function (err) {
   if (err) throw err;
@@ -28,8 +30,7 @@ let profile = `CREATE TABLE if not exists profile(
         first_name varchar(255) not null,
         last_name varchar(255) not null,
         profile_picture varchar(255),
-        PRIMARY KEY (user_profile_id),
-        FOREIGN KEY (user_id) REFERENCES registration(user_id)
+        PRIMARY KEY (user_profile_id)
       )`;
 
 let question = `CREATE TABLE if not exists question(
@@ -42,8 +43,7 @@ let question = `CREATE TABLE if not exists question(
   user_id int not null,
   timestamp timestamp default current_timestamp,
   UNIQUE KEY (post_id),
-  PRIMARY KEY (question_id),
-  FOREIGN KEY (user_id) REFERENCES registration(user_id)
+  PRIMARY KEY (question_id)
 )`;
 
 let answer = `CREATE TABLE if not exists answer(
@@ -53,9 +53,7 @@ let answer = `CREATE TABLE if not exists answer(
         user_id int not null,
         question_id int not null,
         timestamp timestamp default current_timestamp,
-        PRIMARY KEY (answer_id),
-        FOREIGN KEY (user_id) REFERENCES registration(user_id),
-        FOREIGN KEY (question_id) REFERENCES question(question_id)
+        PRIMARY KEY (answer_id)
       )`;
 
 pool.query(registration, (err, results) => {
