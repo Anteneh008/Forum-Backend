@@ -21,6 +21,10 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
+
+// Set up CORS pre-flight options for /api/upload
+app.options('/api/upload', cors(corsOptions));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
