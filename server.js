@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT||80;
 const userRouter = require("./server/api/users/user.router");
 const userRouter2 = require("./server/api/questions/question.router");
 const userRouter3 = require("./server/api/answer/answer.router");
@@ -29,4 +29,4 @@ app.use("/uploads", express.static(path.join(__dirname, "./server/api/profile/up
 
 app.use("/api/upload", userRouter7);
 
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+app.listen(port,"0.0.0.0", () => console.log(`Listening at http://localhost:${port}`));
