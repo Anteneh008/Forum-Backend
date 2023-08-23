@@ -13,7 +13,14 @@ const userRouter5 = require("./server/api/reset/reset.router");
 const userRouter6 = require("./server/api/reset/reset.router");
 const userRouter7 = require("./server/api/profile/profile.router");
 
-app.use(cors());
+// Configure CORS
+const corsOptions = {
+    origin: "https://4337a2e4.forum-frontend-3fm.pages.dev", // Replace with your frontend domain
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Enable cookies and authentication headers
+  };
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
